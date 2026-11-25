@@ -13,6 +13,20 @@ class Model:
         importo medio per bonifico >= threshold (euro)
         """
         # TODO
+        self.G.clear()
+        if self._nodes is None:
+            self._nodes = DAO.read_all_filiali()
+        if self._edges is None:
+            self._edges = DAO.read_all_collegamenti()
+        self.G.add_nodes_from(self._nodes)
+        id_map = {}
+        for f in self._nodes:
+            id_map[f.id] = f
+        for c in self._edges:
+            if c.importo_medio >= threshold:
+                u = id_map[c.id_filiale_1]
+                v = id_map[c.id_filiale_2]
+                self.G.add_edge(u, v, weight=c.importo_medio)
 
     def get_num_edges(self):
         """
@@ -20,6 +34,7 @@ class Model:
         :return: numero di edges del grafo
         """
         # TODO
+        return self.G.number_of_edges()
 
     def get_num_nodes(self):
         """
@@ -27,6 +42,7 @@ class Model:
         :return: numero di nodi del grafo
         """
         # TODO
+        return self.G.number_of_nodes()
 
     def get_all_edges(self):
         """
@@ -34,3 +50,4 @@ class Model:
         :return: gli edges del grafo con gli attributi (il weight)
         """
         # TODO
+        return list(self.G.edges(data=True))
