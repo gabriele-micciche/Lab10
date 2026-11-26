@@ -13,10 +13,12 @@ class DAO:
         try:
             cursor = conn.cursor(dictionary=True)
             try:
-                cursor.execute(
-                    "SELECT id, codice, nome, citta, provincia, latitudine, longitudine "
-                    "FROM filiale ORDER BY id"
-                )
+                query = """
+                    SELECT id, codice, nome, citta, provincia, latitudine, longitudine 
+                    FROM filiale
+                    ORDER BY id
+                """
+                cursor.execute(query)
                 result = []
                 for row in cursor:
                     result.append(Filiale(**row))
