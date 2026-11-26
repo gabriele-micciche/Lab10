@@ -50,4 +50,4 @@ class Model:
         :return: gli edges del grafo con gli attributi (il weight)
         """
         # TODO
-        return list(self.G.edges(data=True))
+        return self.G.edges(data=True)

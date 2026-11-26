@@ -39,8 +39,7 @@ class DAO:
                            AVG(importo) AS importo_medio
                     FROM bonifico
                     WHERE id_filiale_origine <> id_filiale_destinazione
-                    GROUP BY LEAST(id_filiale_origine, id_filiale_destinazione),
-                             GREATEST(id_filiale_origine, id_filiale_destinazione)
+                    GROUP BY id_filiale_1, id_filiale_2
                 """
                 cursor.execute(query)
                 result = []
